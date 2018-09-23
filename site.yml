@@ -1,5 +1,14 @@
+- name: Configure nginx
+  tags: web
+  become: true
+  hosts: servers
+  roles:
+    - sedovandrew.nginx
+
 - hosts: servers
   become: true
   roles:
      - role: pacemaker
+
+
 
