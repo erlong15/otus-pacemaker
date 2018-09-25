@@ -13,7 +13,7 @@ pcs property set stonith-enabled=false
 pcs resource create ClusterIP ocf:heartbeat:IPaddr2  ip=192.168.7.120 cidr_netmask=32 op monitor interval=30s
 pcs resource create ClusterNginx ocf:heartbeat:nginx configfile=/etc/nginx/nginx.conf op monitor timeout="5s" interval="5s"
 pcs constraint colocation add ClusterNginx ClusterIP INFINITY
-pcs constraint order ClusterIP then the ClusterNginx
+pcs constraint order ClusterIP then ClusterNginx
 ```
 
 ## Useful commands
