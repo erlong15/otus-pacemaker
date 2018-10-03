@@ -8,7 +8,7 @@ nodes = {
 	:disks => {
 		:satan3 => {
 			:dfile => './sata3.vdi',
-			:size => 250,
+			:size => 1000,
 			:port => 1
 		},
          }
