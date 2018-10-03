@@ -1,6 +1,18 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 nodes = {
+  :iscsi => {
+        :box_name => "centos/7",
+        :ip_addr => '192.168.7.153',
+        :drdb_ip => '192.168.8.153',
+	:disks => {
+		:satan3 => {
+			:dfile => './sata3.vdi',
+			:size => 250,
+			:port => 1
+		},
+         }
+  },
   :pcm1 => {
         :box_name => "centos/7",
         :ip_addr => '192.168.7.150',

@@ -9,6 +9,9 @@
   become: true
   roles:
      - role: pacemaker
+     - role: iscsi-client
 
-
-
+- hosts: iscsi
+  become: true
+  roles:
+     - role: iscsi-target
