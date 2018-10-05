@@ -1,17 +1,47 @@
-- name: Configure nginx
+- hosts: iscsi
+  tags: target
+  become: true
+  roles:
+    - role: iscsi-target
+  tasks:
+    - name: targetcli
+      shell: |
+         targetcli /backstores/block create disk01 /dev/sdb
+         targetcli /backstores/block create disk02 /dev/sdc
+         targetcli /iscsi create iqn.2018-09.ru.otus:storage.target00
+         targetcli /iscsi/iqn.2018-09.ru.otus:storage.target00/tpg1/portals create 0.0.0.0
+         targetcli /iscsi/iqn.2018-09.ru.otus:storage.target00/tpg1/luns create /backstores/block/disk01 lun=1 
+         targetcli /iscsi/iqn.2018-09.ru.otus:storage.target00/tpg1/luns create /backstores/block/disk01 lun=2
+         targetcli /iscsi/iqn.2018-09.ru.otus:storage.target00/tpg1 set attribute authentication=0
+         targetcli /iscsi/iqn.2018-09.ru.otus:storage.target00/tpg1/acls create iqn.2018-09.ru.otus:pcm1
+         targetcli /iscsi/iqn.2018-09.ru.otus:storage.target00/tpg1/acls create iqn.2018-09.ru.otus:pcm2
+
+- name: Configure cluster
   tags: web
   become: true
   hosts: servers
   roles:
     - sedovandrew.nginx
+    - role: pacemaker
+    - role: iscsi-client
 
-- hosts: servers
+- name: discover iscsi
   become: true
-  roles:
-     - role: pacemaker
-     - role: iscsi-client
+  hosts: servers
+  tags: iclient
+  tasks: 
+    - name: change iqn
+      lineinfile:
+        path: /etc/iscsi/initiatorname.iscsi
+        regexp: '^InitiatorName=.*'
+        line: 'InitiatorName=iqn.2018-09.ru.otus:{{ inventory_hostname }}'
+    - name: iscsiadm
+      shell: |
+        iscsiadm -m discovery -t st -p 192.168.8.153
+        iscsiadm -m discovery -t st -p 192.168.7.153
+        iscsiadm -m node -l -T iqn.2018-09.ru.otus:storage.target00
+    - name: iscsid start
+      service:
+        name: iscsid
+        state: started
 
-- hosts: iscsi
-  become: true
-  roles:
-     - role: iscsi-target

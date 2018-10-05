@@ -11,6 +11,12 @@ nodes = {
 			:size => 1000,
 			:port => 1
 		},
+                :satan4 => {
+                        :dfile => './sata4.vdi',
+                        :size => 1000,
+                        :port => 2
+                },
+
          }
   },
   :pcm1 => {
@@ -72,10 +78,10 @@ Vagrant.configure(2) do |config|
              end
           end
 
-          box.vm.provision "ansible" do |ansible|
-            ansible.playbook = "site.yml"
-            ansible.become = true
-          end
+          #box.vm.provision "ansible" do |ansible|
+          #  ansible.playbook = "site.yml"
+          #   ansible.become = true
+          #end
       end
   end
 end

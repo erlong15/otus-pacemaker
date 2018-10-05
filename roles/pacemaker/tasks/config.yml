@@ -9,3 +9,4 @@
     pcs cluster auth {{ groups['servers']|join(' ') }} -u {{ pacemaker_hacluster_user }} -p  {{ pacemaker_hacluster_password }}
     pcs cluster setup --name {{ pacemaker_hacluster_name }} {{ groups['servers']|join(' ') }}
     pcs cluster start --all
+  ignore_errors: True

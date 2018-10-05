@@ -12,3 +12,9 @@
     - gfs2-utils
     - lvm2-cluster
     - fence-agents-all
+
+- name: set up multipath
+  command: mpathconf --enable --with_multipathd y
+  notify:
+    - start multipath
+
