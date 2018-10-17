@@ -43,6 +43,18 @@ nodes = {
 		},
          }
   },
+  :pcm3 => {
+        :box_name => "centos/7",
+        :ip_addr => '192.168.7.149',
+        :drdb_ip => '192.168.8.149',
+        :disks => {
+                :satan2 => {
+                        :dfile => './sata5.vdi',
+                        :size => 250,
+                        :port => 1
+                },
+         }
+  },
 }
 
 Vagrant.configure(2) do |config|

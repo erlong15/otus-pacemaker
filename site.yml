@@ -15,6 +15,7 @@
          targetcli /iscsi/iqn.2018-09.ru.otus:storage.target00/tpg1 set attribute authentication=0
          targetcli /iscsi/iqn.2018-09.ru.otus:storage.target00/tpg1/acls create iqn.2018-09.ru.otus:pcm1
          targetcli /iscsi/iqn.2018-09.ru.otus:storage.target00/tpg1/acls create iqn.2018-09.ru.otus:pcm2
+         targetcli /iscsi/iqn.2018-09.ru.otus:storage.target00/tpg1/acls create iqn.2018-09.ru.otus:pcm3
 
 - name: Configure cluster
   tags: web
