@@ -20,7 +20,7 @@ pcs status resources
 pvcreate /dev/mapper/mpatha
 vgcreate -Ay -cy cluster_vg /dev/mapper/mpatha  
 lvcreate -L900M -n cluster_lv cluster_vg
-mkfs.gfs2 -j2 -p lock_dlm -t otusha:gfs2 /dev/cluster_vg/cluster_lv
+mkfs.gfs2 -j3 -p lock_dlm -t otusha:gfs2 /dev/cluster_vg/cluster_lv
 pcs resource create clusterfs Filesystem device="/dev/cluster_vg/cluster_lv" directory="/mnt/gfs2"  fstype="gfs2" "options=noatime" op monitor interval=10s  on-fail=ignore clone interleave=true
 pcs constraint order start clvmd-clone then clusterfs-clone
 pcs constraint colocation add clusterfs-clone with clvmd-clone
