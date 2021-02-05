@@ -1,0 +1,6 @@
+- name: Configure cluster
+  tags: web
+  become: true
+  hosts: servers
+  roles:
+    - role: pacemaker

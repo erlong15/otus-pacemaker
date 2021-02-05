@@ -1,0 +1,5 @@
+[servers]
+pcm1 ansible_host=10.51.21.80
+pcm2 ansible_host=10.51.21.81
+pcm3 ansible_host=10.51.21.82
+
