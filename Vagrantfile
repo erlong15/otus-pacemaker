@@ -1,19 +1,25 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 nodes = {
+  :ansible => {
+        :box_name => "centos/7",
+        :ip_addr => '192.168.56.149'
+
+  },
   :pcm1 => {
         :box_name => "centos/7",
-        :ip_addr => '192.168.7.150'
+        :ip_addr => '192.168.56.150'
    
   },
   :pcm2 => {
         :box_name => "centos/7",
-        :ip_addr => '192.168.7.151'
+        :ip_addr => '192.168.56.151'
          
   },
 }
 
 Vagrant.configure(2) do |config|
+
   nodes.each do |boxname, boxconfig|
 
       config.vm.define boxname do |box|
